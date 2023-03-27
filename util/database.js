@@ -1,11 +1,13 @@
-const mongoose = require("mongoose");
 
-const DBConcction = callback => { mongoose.connect(process.env.MONGO_URL).then( ()=> {
-         console.log("DB Connected!!")
-         callback()
-    }).catch(err => {
-        console.log(err);
-    })
-}
+const mongoose=require("mongoose");
 
-exports.DBConcction = DBConcction;
+const DBConcction=()=>{
+
+    return mongoose.connect(process.env.MONGO_URL).then((res)=>{
+        console.log("DB connected...")
+            }).catch((err)=>{console.log("failed connected",err)})
+        } 
+
+
+
+module.exports=DBConcction;

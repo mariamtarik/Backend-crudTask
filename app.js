@@ -3,7 +3,7 @@ const tasksRoute = require("./routes/admin")
 const authRoute = require("./routes/auth")
 const app = express()
 const bodyParser = require("body-parser")
-const DBConcction = require('./util/database').DBConcction
+const DBConcction = require('./util/database')
 const multer = require('multer')
 const path = require("path")
 const swaggerUi = require('swagger-ui-express');
@@ -11,6 +11,7 @@ const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerDocument = require('./swagger.json');
 require("dotenv").config();
 const port = process.env.PORT;
+DBConcction();
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'images');
@@ -56,6 +57,6 @@ app.use((error, req, res, next) => {
     res.status(status).json({ message: message });
   });
 app.use("/",(req,res)=>{res.send("hello")})
-DBConcction(() => {
-    app.listen(port , () => console.log(`Example app listening on port ${port}!`))
-})
+
+app.listen(port , () => console.log(`Example app listening on port ${port}!`))
+
