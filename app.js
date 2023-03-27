@@ -57,5 +57,5 @@ app.use((error, req, res, next) => {
   });
 app.use("/",(req,res)=>{res.send("hello")})
 DBConcction(() => {
-    app.listen(port)
+    app.listen(port , () => console.log(`Example app listening on port ${port}!`))
 })
