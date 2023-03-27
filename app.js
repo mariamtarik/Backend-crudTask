@@ -2,6 +2,9 @@ const express = require('express');
 const tasksRoute = require("./routes/admin")
 const authRoute = require("./routes/auth")
 const app = express()
+var cors = require('cors')
+app.use(express.json());
+app.use(cors())
 const bodyParser = require("body-parser")
 const DBConcction = require('./util/database')
 const multer = require('multer')
@@ -41,13 +44,13 @@ const fileFilter = (req, file, cb) => {
     multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
   );
   app.use('/images', express.static(path.join(__dirname, 'images')));
-app.use((req , res , next) => {
-    res.setHeader("Access-Control-Allow-Origin" , "*")
-    res.setHeader("Access-Control-Allow-Methods" , "GET , POST , PUT , PATCH , DELETE")
-    res.setHeader("Access-Control-Allow-Headers" , "Content-Type , Authorization") 
+// app.use((req , res , next) => {
+//     res.setHeader("Access-Control-Allow-Origin" , "*")
+//     res.setHeader("Access-Control-Allow-Methods" , "GET , POST , PUT , PATCH , DELETE")
+//     res.setHeader("Access-Control-Allow-Headers" , "Content-Type , Authorization") 
 
-    next()
-})
+//     next()
+// })
 app.use('/tasks' , tasksRoute)
 app.use('/auth' , authRoute)
 
